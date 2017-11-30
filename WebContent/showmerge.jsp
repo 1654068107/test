@@ -7,10 +7,11 @@
 <title>合并</title>
 </head>
 <body>
-     <form action="tomerge" method="get">
+     <form action="merge" method="get">
 		<h2></h2>
-		<input name="name" type="text" placeholder="输入合并开始的节点" size="22"required />
-				
+		<input name="father" type="text" placeholder="输入合并开始的节点" size="22"required />
+		<input name="treename" type="text" placeholder="输入你想要合并到哪棵树上" size="22"required />
+		<input name="ID" type="text" placeholder="输入用户名" size="22"required />		
 		<input type="submit" value="确认" />		
 		</form>
 		

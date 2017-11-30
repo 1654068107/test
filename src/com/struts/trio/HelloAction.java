@@ -65,6 +65,7 @@ public class HelloAction{
 			System.out.println(this.ID.equals(result1.get(i).get("ID")));
 			System.out.println(password.equals(result1.get(i).get("password")));
 			if (this.ID.equals(result1.get(i).get("ID")) && password.equals(result1.get(i).get("password"))) {
+				setID(ID);
 				//System.out.println("Success");
 				return "SUCCESS";
 			}
@@ -115,12 +116,12 @@ public class HelloAction{
 	}
 	
 	public String tocancel() {
-		System.out.println(ID);
+		//System.out.println(ID);
 		String sql = "delete from moniter where ID=" + "'" + this.ID + "'";
-		System.out.println(this.ID);
+		//System.out.println(this.ID);
 		connect newc = new connect();
 		int result = newc.delete(sql);
-		System.out.println(result);
+		//System.out.println(result);
 		if (result == 0) {
 			return "FALSE";
 		} else {
@@ -145,13 +146,24 @@ public class HelloAction{
 		if (result1.size() == 0) {
 			return "FALSE";
 		}
-		System.out.println("pp" + result1.size());
+		//System.out.println("pp" + result1.size());
 		for (i = 0 ; i < result1.size(); i ++) {
-			System.out.println(i);
-			System.out.println(this.ID.equals(result1.get(i).get("ID")));
-			System.out.println(password.equals(result1.get(i).get("password")));
-			if (this.ID.equals(result1.get(i).get("ID")) && password.equals(result1.get(i).get("password"))) {
-				System.out.println("Success");
+			//System.out.println(i);
+			//System.out.println(this.ID.equals(result1.get(i).get("ID")));
+			//System.out.println(password.equals(result1.get(i).get("password")));
+			if (this.ID.equals(result1.get(i).get("ID"))) {
+				String sql2 = "insert into usersid values(" + "\"" + ID + "\"" + "," + "\"" + password + "\"" +")";
+				String sql3 = "delete from nousers where ID=" + "\"" + ID + "\"";
+				System.out.println(sql3);
+				int result = newc.delete(sql3);
+				if (result == 0) {
+					return "FALSE";
+				} 
+				System.out.println(sql2);
+				int status = newc.update(sql2);
+				if (status == 0)
+					return "FALSE";
+				//System.out.println("Success");
 				return "SUCCESS";
 			}
 		}
@@ -215,7 +227,7 @@ public class HelloAction{
 		if (!(son.equals("null"))){
 			String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
 					+year1 + "," + month1 + "," + day1 + ")";
-			status1 = mc.delete(sql1);
+			status1 = mc.update(sql1);
 		}
 		else{
 			status1 = 1;
@@ -223,7 +235,7 @@ public class HelloAction{
 		if (!(gfather.equals("null"))){
 			String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
 					+year2 + "," + month2 + "," + day2 + ")";
-			status2 = mc.delete(sql2);
+			status2 = mc.update(sql2);
 		}
 		else{
 			status2 =1;
@@ -335,7 +347,7 @@ public class HelloAction{
 		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\""; 
         //String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\"";
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 		connect mc = new connect();
 		int status = mc.delete(sql);
 		
@@ -346,7 +358,55 @@ public class HelloAction{
 		}
 	}
 	
+	public int mergetemp(String treename , String newname ,String ID , String father , connect newc){
+		String sql1 = "select * from users where treename = " + "\"" + treename +"\" and name = \"" + ID + "\" and father = \"" + father + "\"";
+		System.out.println("11" + sql1 + "\n");
+		//connect newc = new connect();
+		ArrayList<Map<String, String>> result = newc.select(sql1, "users");
+		if (result.size() == 0) {
+			return 0;
+		}
+		System.out.println(result.size());
+		int i;
+		for (i = 0 ; i < result.size(); i ++) {
+			/*System.out.println(i);
+			System.out.println(this.ID.equals(result1.get(i).get("ID")));
+			System.out.println(password.equals(result1.get(i).get("password")));
+			if (this.ID.equals(result1.get(i).get("ID")) && password.equals(result1.get(i).get("password"))) {
+				//System.out.println("Success");
+				return "SUCCESS";
+			}*/
+			String sql2 = "update users set treename = \"" + newname + "\" where treename=\"" + treename + "\"and name=\"" + ID + "\"and father=\"" + father + "\"";
+			System.out.println("12" + sql2 + "\n");
+			int status = newc.update(sql2);
+			mergetemp(treename,newname,ID,result.get(i).get("son"),newc);
+			return status;
+		}
+		return 1;
+	}
+	
 	public String tomerge() {
+		ServletRequest Srequest = ServletActionContext.getRequest();
+		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
+		HttpSession session = Sreq.getSession();
+		String treename = Srequest.getParameter("treename");
+		String father = Srequest.getParameter("father");
+		String ID = Srequest.getParameter("ID");
+		String sql1 = "select * from users where treename != " + "\"" + treename +"\" and name = \"" + ID + "\" and father = \"" + father + "\"";
+		//System.out.println("00" + sql1 + "\n");
+		connect newc = new connect();
+		ArrayList<Map<String, String>> result = newc.select(sql1, "users");
+		if (result.size() == 0) {
+			return "FALSE";
+		}
+		System.out.println("01" + sql1 + "\n");
+		int i , status;
+		for (i = 0 ; i < result.size(); i ++) {
+			status = mergetemp(result.get(i).get("treename"),treename,ID,father,newc);
+			if (status == 0){
+				return "FALSE";
+			}
+	    }
 		return "SUCCESS";
 	}
 	

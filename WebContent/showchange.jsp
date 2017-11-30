@@ -10,7 +10,7 @@
      <a href=update><button type="button">更新学术师承树内容</button></a>
      <input type="button" onclick="window.location='showdelete.jsp'" value="删除学术师承树内容">
      <input type="button" onclick="window.location='showadd.jsp'" value="添加学术师承树内容">
-     <a href=merge><button type="button">合并学术师承树</button></a>
+     <input type="button" onclick="window.location='showmerge.jsp'" value="合并学术师承树">
      
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);">

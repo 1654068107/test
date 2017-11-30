@@ -82,7 +82,7 @@
              <result name="FALSE">/false.jsp</result>
         </action>
         <action name="merge" class="com.struts.trio.HelloAction" method="tomerge">
-             <result name="SUCCESS">/showmerge.jsp</result>
+             <result name="SUCCESS">/success.jsp</result>
              <result name="FALSE">/false.jsp</result>
         </action>
         <action name="result" class="com.struts.trio.HelloAction" method="toresult">
