@@ -117,20 +117,54 @@ public class HelloAction{
 	
 	public String tocancel() {
 		//System.out.println(ID);
-		String sql = "delete from moniter where ID=" + "'" + this.ID + "'";
+		String sql1 = "delete from usersid where ID=" + "\"" + this.ID + "\"";
 		//System.out.println(this.ID);
 		connect newc = new connect();
-		int result = newc.delete(sql);
+		int result1 = newc.delete(sql1);
 		//System.out.println(result);
-		if (result == 0) {
+		
+        String sql2 = "insert into nousers values (\"" + this.ID + "\")";
+        int result2 = newc.update(sql2);
+        if (result1 == 0 || result2 == 0) {
 			return "FALSE";
-		} else {
-			return "SUCCESS";
-		}
+		} 
+        return "SUCCESS";
+	}
+	
+	public String tonouseradd(){
+		String sql = "insert into nousers values (\"" + this.ID + "\")";
+		connect newc = new connect();
+		int result = newc.update(sql);
+        if (result == 0) {
+			return "FALSE";
+		} 
+        return "SUCCESS";
 	}
 	
 	public String tousers() {
+		String sql1 = "select * from usersid";
+		String sql2 = "select * from nousers";
+		connect mc = new connect();
+		ArrayList<Map<String, String>> result1 = mc.select(sql1, "usersid");
+		ArrayList<Map<String, String>> result2 = mc.select(sql2, "nousers");
+		if (result1.size() == 0 && result2.size() == 0) {
+			return "FALSE";
+		}
+		if (result1.size() == 0){
+			return "FALSE1";
+		}
+		if (result2.size() == 0){
+			return "FALSE2";
+		}
+		ServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session = req.getSession();
+		session.setAttribute("list1", result1);
+		
+		session.setAttribute("list2", result2);
+
 		return "SUCCESS";
+		
 	}
 	
 	public String towrite() {
@@ -202,6 +236,20 @@ public class HelloAction{
 	}
 
 	public String tosearch(){
+		ServletRequest Srequest = ServletActionContext.getRequest();
+		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
+		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
+		String sql = "select * from users where name = \"" + name + "\"";
+		connect newc = new connect();
+		ArrayList<Map<String, String>> result = newc.select(sql, "users");
+		if (result.size() == 0) {
+			return "FALSE";
+		}
+		int i;
+		for (i = 0 ; i < result.size(); i ++) {
+			System.out.println(result.get(i));
+	    }
 		return "SUCCESS";
 	}
 	public String toadd() {

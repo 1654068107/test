@@ -9,7 +9,7 @@
 <body>
      <input type="button" onclick="window.location='showcreate.jsp'" value="创建学术师承树">
      <a href=change><button type="button">更改学术师承树</button></a>
-     <a href=search><button type="button">搜索学术师承树</button></a>
+     <input type="button" onclick="window.location='showsearch.jsp'" value="搜索学术师承树">
      
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);">

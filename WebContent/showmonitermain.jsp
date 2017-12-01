@@ -9,10 +9,11 @@
 <body>
      <input type="button" onclick="window.location='showcreate.jsp'" value="创建学术师承树">
      <a href=change><button type="button">更改学术师承树</button></a>
-     <a href=search><button type="button">搜索学术师承树</button></a>
+     <input type="button" onclick="window.location='showsearch.jsp'" value="搜索学术师承树"> 
      <!--  <a href=cancel><button type="button">注销用户</button></a>-->
      <input type="button" onclick="window.location='showcancel.jsp'" value="注销用户"> 
      <a href=users><button type="button">显示用户</button></a>
+     <input type="button" onclick="window.location='shownouseradd.jsp'" value="添加可以注册的用户">
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);">
 </body>

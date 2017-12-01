@@ -8,9 +8,14 @@
 </head>
 <body>
      <h1>欢迎来到学术师承树</h1>
+     <form action="search" method="get">
+		<input name="name" type="text" placeholder="输入你要搜索的用户" size="22"required />
+				
+		<input type="submit" value="确认" />		
+	</form>
      <input type="button" onclick="window.location='showwrite.jsp'" value="用户注册">
      <input type="button" onclick="window.location='showsign.jsp'" value="用户登录">
      <input type="button" onclick="window.location='showmoniter.jsp'" value="管理员登录">
-     <a href=search><button type="button">免登陆</button></a>
+     <!--<a href=search><button type="button">免登陆</button></a>-->
 </body>
 </html>

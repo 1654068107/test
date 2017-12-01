@@ -21,6 +21,10 @@
              <result name="SUCCESS">/success.jsp</result>
              <result name="FALSE">/false.jsp</result>
         </action>
+        <action name="nouseradd" class="com.struts.trio.HelloAction" method="tonouseradd">
+             <result name="SUCCESS">/success.jsp</result>
+             <result name="FALSE">/false.jsp</result>
+        </action>
         <action name="monitermain" class="com.struts.trio.HelloAction" method="tomonitermain">
              <result name="SUCCESS">/showmonitermain.jsp</result>
              <result name="FALSE">/false.jsp</result>
@@ -46,7 +50,7 @@
              <result name="FALSE">/false.jsp</result>
         </action>
         <action name="search" class="com.struts.trio.HelloAction" method="tosearch">
-             <result name="SUCCESS">/showsearch.jsp</result>
+             <result name="SUCCESS">/success.jsp</result>
              <result name="FALSE">/false.jsp</result>
         </action>
         <action name="add" class="com.struts.trio.HelloAction" method="toadd">
