@@ -10,7 +10,7 @@
      <h1>用户注册</h1>
      <form action="write" method="get">
 		<h2></h2>
-		<input name="ID" type="text" placeholder="账号" size="22"required />
+	    <input name="ID" type="text" placeholder="账号" size="22"required />
 		<input name="password" type="text" placeholder="密码" size="22"required />
 				
 		<input type="submit" value="确认" />		

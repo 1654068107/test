@@ -10,7 +10,7 @@
     <form action="delete" method="get">
 		<h2></h2>
 		<input name="treename" type="text" placeholder="输入学术师承树名称" size="22"required />
-		<input name="name" type="text" placeholder="输入用户名称" size="22"required />
+		<!--  <input name="name" type="text" placeholder="输入用户名称" size="22"required />-->
 		<input name="father" type="text" placeholder="输入待删除关系中老师的名字" size="22"required />
 		<input name="son" type="text" placeholder="输入待删除关系中徒弟的名字" size="22"required />
 				

@@ -10,7 +10,7 @@
     <form action="updatetime" method="get">
 		<h2></h2>
 		<input name="treename" type="text" placeholder="输入学术师承树名称" size="22"required />
-		<input name="name" type="text" placeholder="输入用户名称" size="22"required />
+		<!--  <input name="name" type="text" placeholder="输入用户名称" size="22"required />-->
 		<input name="father" type="text" placeholder="输入要更改关系中师傅的名字" size="22"required />
 		<input name="son" type="text" placeholder="输入要更改关系中徒弟的名字" size="22"required />
 		<input name="time" type="text" placeholder="输入新的时间" size="22"required />

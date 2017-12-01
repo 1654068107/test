@@ -17,7 +17,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 public class HelloAction{
-	public String ID;
+	public static String ID;
 	//private ServletRequest request;
 	private ArrayList<String> list = null;
 	
@@ -96,9 +96,9 @@ public class HelloAction{
 		}
 		System.out.println(result1.size());
 		for (i = 0 ; i < result1.size(); i ++) {
-			System.out.println(i);
+			/*System.out.println(i);
 			System.out.println(this.ID.equals(result1.get(i).get("ID")));
-			System.out.println(password.equals(result1.get(i).get("password")));
+			System.out.println(password.equals(result1.get(i).get("password")));*/
 			if (this.ID.equals(result1.get(i).get("ID")) && password.equals(result1.get(i).get("password"))) {
 				System.out.println("Success");
 				return "SUCCESS";
@@ -117,13 +117,17 @@ public class HelloAction{
 	
 	public String tocancel() {
 		//System.out.println(ID);
-		String sql1 = "delete from usersid where ID=" + "\"" + this.ID + "\"";
+		ServletRequest Srequest = ServletActionContext.getRequest();
+		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
+		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
+		String sql1 = "delete from usersid where ID=" + "\"" + name + "\"";
 		//System.out.println(this.ID);
 		connect newc = new connect();
 		int result1 = newc.delete(sql1);
 		//System.out.println(result);
 		
-        String sql2 = "insert into nousers values (\"" + this.ID + "\")";
+        String sql2 = "insert into nousers values (\"" + name + "\")";
         int result2 = newc.update(sql2);
         if (result1 == 0 || result2 == 0) {
 			return "FALSE";
@@ -132,7 +136,11 @@ public class HelloAction{
 	}
 	
 	public String tonouseradd(){
-		String sql = "insert into nousers values (\"" + this.ID + "\")";
+		ServletRequest Srequest = ServletActionContext.getRequest();
+		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
+		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
+		String sql = "insert into nousers values (\"" + name + "\")";
 		connect newc = new connect();
 		int result = newc.update(sql);
         if (result == 0) {
@@ -220,7 +228,7 @@ public class HelloAction{
 		year = Integer.parseInt(time.substring(0,4));
 		month = Integer.parseInt(time.substring(5,7));
 		day = Integer.parseInt(time.substring(8,10));
-		String sql = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
+		String sql = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + ID + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
 				+year + "," + month + "," + day + ")";
 		System.out.println(sql);
 		connect mc = new connect();
@@ -273,7 +281,7 @@ public class HelloAction{
 		connect mc = new connect();
 		int status1,status2;
 		if (!(son.equals("null"))){
-			String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
+			String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + ID + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
 					+year1 + "," + month1 + "," + day1 + ")";
 			status1 = mc.update(sql1);
 		}
@@ -281,7 +289,7 @@ public class HelloAction{
 			status1 = 1;
 		}
 		if (!(gfather.equals("null"))){
-			String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
+			String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + ID + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
 					+year2 + "," + month2 + "," + day2 + ")";
 			status2 = mc.update(sql2);
 		}
@@ -307,13 +315,13 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String treename = Srequest.getParameter("treename");
-		String name = Srequest.getParameter("name");
+		//String name = Srequest.getParameter("name");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
 		connect mc = new connect();
 		int status;
-	    String sql = "delete from users where treename=" + "\"" + treename + "\"" + "and name=" + "\"" + name + "\"" + "and father=" + "\"" + father + "\"" + "and son=" + "\"" + son + "\"";
+	    String sql = "delete from users where treename=" + "\"" + treename + "\"" + "and name=" + "\"" + ID + "\"" + "and father=" + "\"" + father + "\"" + "and son=" + "\"" + son + "\"";
 		status = mc.delete(sql);
 		
 		if (status == 0) {
@@ -341,8 +349,8 @@ public class HelloAction{
 		HttpSession session = Sreq.getSession();
 		String oldname = Srequest.getParameter("oldname");
 		String newname = Srequest.getParameter("newname");
-		String sql1 = "update users set father=\"" + newname + "\" where father=\"" + oldname +"\""; 
-		String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\"";
+		String sql1 = "update users set father=\"" + newname + "\" where father=\"" + oldname +"\" and name = \"" +  ID + "\""; 
+		String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\" and name = \"" +  ID + "\"";
 		
 		System.out.println(sql2);
 		connect mc = new connect();
@@ -363,7 +371,7 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String treename = Srequest.getParameter("treename");
-		String name = Srequest.getParameter("name");
+		//String name = Srequest.getParameter("name");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
@@ -371,7 +379,7 @@ public class HelloAction{
 		year = Integer.parseInt(time.substring(0,4));
 		month = Integer.parseInt(time.substring(5,7));
 		day = Integer.parseInt(time.substring(8,10));
-		String sql = "update users set year=" + year + ", month=" + month + ",day=" + day + " where treename=\"" + treename + "\"and name=\"" + name + "\"and father=\"" + father
+		String sql = "update users set year=" + year + ", month=" + month + ",day=" + day + " where treename=\"" + treename + "\"and name=\"" + ID + "\"and father=\"" + father
 				+ "\"and son=\"" + son + "\"";
 		System.out.println(sql);
 		connect mc = new connect();
@@ -392,7 +400,7 @@ public class HelloAction{
 		String son = Srequest.getParameter("son");
 		String newfather = Srequest.getParameter("newfather");
 		String newson = Srequest.getParameter("newson");
-		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\""; 
+		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\" and name =\"" + ID + "\""; 
         //String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\"";
 		
 		//System.out.println(sql);
@@ -439,7 +447,7 @@ public class HelloAction{
 		HttpSession session = Sreq.getSession();
 		String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
-		String ID = Srequest.getParameter("ID");
+		//String ID = Srequest.getParameter("ID");
 		String sql1 = "select * from users where treename != " + "\"" + treename +"\" and name = \"" + ID + "\" and father = \"" + father + "\"";
 		//System.out.println("00" + sql1 + "\n");
 		connect newc = new connect();

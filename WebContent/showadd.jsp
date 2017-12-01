@@ -18,7 +18,7 @@
 		<input type="submit" value="继续" />		
 	</form>
 		
-	<a href=><button type="button">确认</button></a>
+	<a href=change><button type="button">确认</button></a>
 		
 	 <input type="submit" value="返回" onclick="javascript :history.back(-1);">
 </body>

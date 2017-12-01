@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="cancel" method="get">
-		<input name="ID" type="text" placeholder="输入你要注销的用户" size="22"required />
+		<input name="name" type="text" placeholder="输入你要注销的用户" size="22"required />
 				
 		<input type="submit" value="确认" />		
 	</form>
