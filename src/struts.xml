@@ -35,7 +35,9 @@
         </action>
         <action name="users" class="com.struts.trio.HelloAction" method="tousers">
              <result name="SUCCESS">/showusers.jsp</result>
-             <result name="FALSE">/false.jsp</result>
+             <result name="FALSE">/showfalse.jsp</result>
+             <result name="FALSE1">/showfalse1.jsp</result>
+             <result name="FALSE2">/showfalse2.jsp</result>
         </action>
         <action name="main" class="com.struts.trio.HelloAction" method="tomain">
              <result name="SUCCESS">/showmain.jsp</result>

@@ -34,6 +34,21 @@ public class HelloAction{
 		this.ID = ID;
 	}
 	
+	/*public String gettname() {
+		return this.tname;
+	}
+
+	public void settnme(String tname) {
+		this.tname = tname;
+	}
+	
+	public String getothername() {
+		return this.ID;
+	}
+
+	public void setID(String ID) {
+		this.ID = ID;
+	}*/
 	/*public String getpassword() {
 		return this.password;
 	}
@@ -264,38 +279,34 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
 		String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
-		String gfather = Srequest.getParameter("gfather");
 		String son = Srequest.getParameter("son");
-		String time1 = Srequest.getParameter("time1");
-		int year1 , month1 , day1;
-		year1 = Integer.parseInt(time1.substring(0,4));
-		month1 = Integer.parseInt(time1.substring(5,7));
-		day1 = Integer.parseInt(time1.substring(8,10));
-		String time2 = Srequest.getParameter("time2");
+		String time = Srequest.getParameter("time");
+		int year , month , day;
+		year = Integer.parseInt(time.substring(0,4));
+		month = Integer.parseInt(time.substring(5,7));
+		day = Integer.parseInt(time.substring(8,10));
+		/*String time2 = Srequest.getParameter("time2");
 		int year2 , month2 , day2;
 		year2 = Integer.parseInt(time2.substring(0,4));
 		month2 = Integer.parseInt(time2.substring(5,7));
-		day2 = Integer.parseInt(time2.substring(8,10));
+		day2 = Integer.parseInt(time2.substring(8,10));*/
 		connect mc = new connect();
-		int status1,status2;
-		if (!(son.equals("null"))){
-			String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + ID + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
-					+year1 + "," + month1 + "," + day1 + ")";
+		int status1;
+			String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + name + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
+					+year + "," + month + "," + day + ")";
+			System.out.println(sql1);
 			status1 = mc.update(sql1);
-		}
-		else{
-			status1 = 1;
-		}
-		if (!(gfather.equals("null"))){
-			String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + ID + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
+		/*if (!(gfather.equals("null"))){
+			String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + name + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
 					+year2 + "," + month2 + "," + day2 + ")";
 			status2 = mc.update(sql2);
 		}
 		else{
 			status2 =1;
-		}
+		}*/
 		/*String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
 				+year1 + "," + month1 + "," + day1 + ")";
 		String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
@@ -304,7 +315,7 @@ public class HelloAction{
 		connect mc = new connect();
 		int status1 = mc.update(sql1);
 		int status2 = mc.update(sql2);*/
-		if (status1 == 0 || status2 == 0)
+		if (status1 == 0)
 			return "FALSE";
 
 		return "SUCCESS";
@@ -347,10 +358,12 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
 		String oldname = Srequest.getParameter("oldname");
 		String newname = Srequest.getParameter("newname");
-		String sql1 = "update users set father=\"" + newname + "\" where father=\"" + oldname +"\" and name = \"" +  ID + "\""; 
-		String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\" and name = \"" +  ID + "\"";
+		String treename = Srequest.getParameter("treename");
+		String sql1 = "update users set father=\"" + newname + "\" where father=\"" + oldname +"\" and name = \"" +  name + "\" and treename = \"" +  treename + "\""; 
+		String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\" and name = \"" + name + "\" and treename = \"" +  treename + "\"";
 		
 		System.out.println(sql2);
 		connect mc = new connect();
@@ -371,7 +384,7 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String treename = Srequest.getParameter("treename");
-		//String name = Srequest.getParameter("name");
+		String name = Srequest.getParameter("name");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
@@ -379,8 +392,8 @@ public class HelloAction{
 		year = Integer.parseInt(time.substring(0,4));
 		month = Integer.parseInt(time.substring(5,7));
 		day = Integer.parseInt(time.substring(8,10));
-		String sql = "update users set year=" + year + ", month=" + month + ",day=" + day + " where treename=\"" + treename + "\"and name=\"" + ID + "\"and father=\"" + father
-				+ "\"and son=\"" + son + "\"";
+		String sql = "update users set year=" + year + ", month=" + month + ",day=" + day + " where treename=\"" + treename + "\"and name=\"" + name + "\"and father=\"" + father
+				+ "\" and son=\"" + son + "\"";
 		System.out.println(sql);
 		connect mc = new connect();
 		int status = mc.delete(sql);
@@ -396,11 +409,13 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
+		String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String newfather = Srequest.getParameter("newfather");
 		String newson = Srequest.getParameter("newson");
-		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\" and name =\"" + ID + "\""; 
+		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\" and name =\"" + name + "\" and treename =\"" + treename + "\""; 
         //String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\"";
 		
 		//System.out.println(sql);

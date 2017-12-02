@@ -7,12 +7,12 @@
 <title>更新他人</title>
 </head>
 <body>
-      <textarea rows="10" cols="30" id="cont">请输入学术师承树名称</textarea>
+      
      
-      <a href=updatetime><button type="button">更改师承树节点时间</button></a>
-     <a href=updatename><button type="button">更改师承树节点名称</button></a>
-     <a href=updaterelation><button type="button">更改错误关系</button></a>
-      <a href=add><button type="button">添加师承树节点</button></a>
+    <input type="button" onclick="window.location='showtime.jsp'" value="更改师生关系产生时间">
+     <input type="button" onclick="window.location='showname.jsp'" value="更改节点名称">
+     <input type="button" onclick="window.location='showrelation.jsp'" value="更改错误关系">      
+     <input type="button" onclick="window.location='showadd.jsp'" value="添加学术师承树内容">    
      
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);">

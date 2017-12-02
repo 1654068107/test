@@ -9,12 +9,13 @@
 <body>
      <form action="add" method="get">
 		<h2></h2>
+		<input name="name" type="text" placeholder="输入要更改用户的名字" size="22"required />
 		<input name="treename" type="text" placeholder="输入学术师承树名称" size="22"required />
-		<input name="father" type="text" placeholder="输入待加入者姓名" size="22"required />
-		<input name="gfather" type="text" placeholder="输入其老师" size="22"required />
-		<input name="son" type="text" placeholder="输入其徒弟" size="22"required />
-		<input name="time1" type="text" placeholder="输入和其老师产生师生关系的时间" size="22"required />	
-		<input name="time2" type="text" placeholder="输入和其老师产生师生关系的时间" size="22"required />		
+		
+		<input name="father" type="text" placeholder="输入老师" size="22"required />
+		<input name="son" type="text" placeholder="输入学生" size="22"required />
+		<input name="time" type="text" placeholder="输入产生师生关系的时间" size="22"required />	
+		
 		<input type="submit" value="继续" />		
 	</form>
 		
