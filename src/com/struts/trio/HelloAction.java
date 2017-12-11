@@ -248,7 +248,7 @@ public void search() throws SQLException
  } 
 
  
-	/*public String tosearch(){
+	public String tosearch(){
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
@@ -286,7 +286,7 @@ public void search() throws SQLException
 		}
 		
 		return "SUCCESS";
-	}*/
+	}
 	
 	public String tobrother(){
 		ServletRequest Srequest = ServletActionContext.getRequest();

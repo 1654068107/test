@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.*,java.util.*"%>
+<%@ page import="java.io.*,java.util.*,java.awt.*,
+   java.awt.image.*,
+   javax.swing.*,
+   com.sun.image.codec.jpeg.*,
+   javax.imageio.*,
+   java.awt.*,
+   java.awt.event.*,
+   javax.swing.JButton,
+   javax.swing.JFrame,
+   javax.swing.JPanel,
+   javax.swing.border.EmptyBorder,
+   show.EchartsController"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,6 +19,7 @@
 <title>学术师承树</title>
 </head>
 <body>
+
     <h1>用户所创建的树</h1>
 	<table width="50%" border="1" align="center">
 		<tr bgcolor="#949494">
@@ -95,5 +107,6 @@
 	</table>
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);">
+EchartsController y=new EchartsController();
 </body>
 </html>

@@ -22,7 +22,7 @@
 <body>
 <%
 EchartsController y=new EchartsController();
-
+y.togetlist("users");
 %>
 </body>
 </html>

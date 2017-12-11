@@ -51,7 +51,7 @@
              <result name="SUCCESS">/showchange.jsp</result>
              <result name="FALSE">/false.jsp</result>
         </action>
-        <action name="search" class="com.struts.trio.HelloAction" method="tosearch">
+        <action name="search" class="show.EchartsController" method="tosearch">
              <result name="SUCCESS">/result.jsp</result>
              <result name="FALSE">/resultfalse.jsp</result>
              <result name="FALSE1">/resultfalse1.jsp</result>

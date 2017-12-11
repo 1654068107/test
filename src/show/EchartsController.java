@@ -11,23 +11,87 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.io.*;
+import java.util.*;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.apache.struts2.ServletActionContext;
+
 class relate {
 	String name,time;
 }
 public class EchartsController extends JFrame{
+	public static String name;
 	List<relate> stulist=new ArrayList<relate>();
 	List<relate> tealist=new ArrayList<relate>();
+	
 	private JPanel contentPane;
 	public EchartsController()
 	{
 		super("»­Ô²");
-		setBounds(50,50,1000,1000);
+		setBounds(0,0,1000,1000);
 		setVisible(true);
+	}
+	public String tosearch(){
+		ServletRequest Srequest = ServletActionContext.getRequest();
+		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
+		HttpSession session = Sreq.getSession();
+		name = Srequest.getParameter("name");
+		String sql1 = "select * from users where name = \"" + name + "\"";
+		String sql2 = "select * from users where father = \"" + name + "\"";
+		String sql3 = "select * from users where son = \"" + name + "\"";
+		
+		connect newc = new connect();
+		ArrayList<Map<String, String>> result1 = newc.select(sql1, "users");
+		ArrayList<Map<String, String>> result2 = newc.select(sql2, "users");
+		ArrayList<Map<String, String>> result3 = newc.select(sql3, "users");
+		ServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session1 = req.getSession();
+		session1.setAttribute("list1", result1);
+		session1.setAttribute("list2", result2);
+		session1.setAttribute("list3", result3);
+		int i;
+		String time;
+		for (i = 0 ; i < result2.size() ; i ++){
+			time = "";
+		    relate a=new relate();
+		    time = time + result2.get(i).get("year");
+		    time = time + result2.get(i).get("month");
+		    time = time + result2.get(i).get("day");
+		    a.name=result2.get(i).get("father");
+		    a.time=time;
+		    tealist.add(a);
+		}
+		
+		for (i = 0 ; i < result3.size() ; i ++){
+			time = "";
+		    relate a=new relate();
+		    time = time + result3.get(i).get("year");
+		    time = time + result3.get(i).get("month");
+		    time = time + result3.get(i).get("day");
+		    a.name=result3.get(i).get("son");
+		    a.time=time;
+		    stulist.add(a);
+		}
+		if (result1.size() == 0) {
+			return "FALSE";
+		}
+		if (result2.size() == 0){
+			return "FALSE1";
+		}
+		if (result3.size() == 0){
+			return "FALSE2";
+		}
+		
+		return "SUCCESS";
 	}
 	public void togetlist(String str)
 	{
@@ -35,7 +99,7 @@ public class EchartsController extends JFrame{
 
 		int i;
 		String time = "";
-		String sql = "select * from "+str +  " where name = \"user4\"";
+		String sql = "select * from users where son = \"" + str + "\"";
 		System.out.println(sql);
 		ArrayList<Map<String, String>> res = newc.select(sql , "users");
 		for (i = 0 ; i < res.size(); i ++) {
@@ -55,7 +119,7 @@ public class EchartsController extends JFrame{
 		connect newc = new connect();
         int i;
 		String time = "";
-		String sql = "select * from "+str + " where name = \"user4\"";
+		String sql = "select * from users where father = \"" + str + "\"";
 		ArrayList<Map<String, String>> res = newc.select(sql , "users");
 		for (i = 0 ; i < res.size(); i ++) {
 			time = "";
@@ -65,14 +129,15 @@ public class EchartsController extends JFrame{
 		    time = time + res.get(i).get("day");
 		    a.name=res.get(i).get("son");
 		    a.time=time;
-		    stulist.add(a);
+		    tealist.add(a);
 		   
 		}
 	}
 	public void paint(Graphics g)
 	{
-		togetlist("users");
-		stugetlist("users");
+		
+		togetlist("user1");
+		stugetlist("user1");
 		int i,j;
 		int tnum=tealist.size();
 		for(i=0;i<tealist.size();i++)
@@ -81,9 +146,9 @@ public class EchartsController extends JFrame{
 			relate b=tealist.get(i);
 			System.out.println(b.name);
 			g.setColor(Color.BLACK);
-			g.drawOval(25+250*(i%3),25+(i/3)*50,50,25);
-			g.drawString(b.name, 25+250*(i%3)+5,25+(i/3)*50+10);
-			drawAL(25+250*((tnum-1)%3)+10,25+((tnum-1)/3+1)*50+15,25+250*(i%3)+5,25+(i/3)*50+10,g);
+			g.drawOval(50,50 + 50*i,75,25); //×óÉÏ½Çx×ø±ê£¬y×ø±ê£¬¿í£¬¸ß
+			g.drawString(b.name, 65,70 + 50*i);
+			drawAL(50+275,50+((tnum-1)/3+1)*50,120,60+i*50,g);
 			g.drawString(b.time,(25+250*((tnum-1)%3)+10+25+50*((tnum-1)%3)+15+25+50*(i%3)+5)/3,(25+((tnum-1)/3+1)*250+10+25+((tnum-1)/3+1)*50+10+25+(i/3)*50+10)/3);
 		}
 		for(j=0;j<stulist.size();j++)
@@ -98,7 +163,7 @@ public class EchartsController extends JFrame{
 			
 			g.drawString(b.time,(60+150*((tnum-1)%3)+20+60+150*((j+i/3*3)%3)+10+60+150*((j+i/3*3)%3)+10)/3,(60+((tnum-1)/3+1)*150+25+60+((j+i/3*3)/3+2)*150+25+60+((j+i/3*3)/3+2)*150+25)/3);
 		}
-		g.drawOval(60+150*((i-1)%3)+10,60+((i-1)/3+1)*150,50,50);
+		g.drawOval(325,50+((tnum-1)/3+1)*25,50,50);
 		
 		
 	}
