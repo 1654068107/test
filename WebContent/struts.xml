@@ -31,7 +31,8 @@
         </action>
         <action name="users" class="com.struts.trio.HelloAction" method="tousers">
              <result name="SUCCESS">/showusers.jsp</result>
-             <result name="FALSE">/false.jsp</result>
+             <result name="FALSE">/showfalse.jsp</result>
+             
         </action>
         <action name="main" class="com.struts.trio.HelloAction" method="tomain">
              <result name="SUCCESS">/showmain.jsp</result>
@@ -46,8 +47,9 @@
              <result name="FALSE">/false.jsp</result>
         </action>
         <action name="search" class="com.struts.trio.HelloAction" method="tosearch">
-             <result name="SUCCESS">/showsearch.jsp</result>
+             <result name="SUCCESS">/result.jsp</result>
              <result name="FALSE">/false.jsp</result>
+             
         </action>
         <action name="add" class="com.struts.trio.HelloAction" method="toadd">
              <result name="SUCCESS">/showadd.jsp</result>

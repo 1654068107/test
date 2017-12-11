@@ -10,7 +10,7 @@
      <form action="add" method="get">
 		<h2></h2>
 		<input name="name" type="text" placeholder="输入要更改用户的名字" size="22"required />
-		<input name="treename" type="text" placeholder="输入学术师承树名称" size="22"required />
+		
 		
 		<input name="father" type="text" placeholder="输入老师" size="22"required />
 		<input name="son" type="text" placeholder="输入学生" size="22"required />

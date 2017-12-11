@@ -3,16 +3,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/mycss.css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>用户主界面</title>
 </head>
 <body>
-     <input type="button" onclick="window.location='showcreate.jsp'" value="创建学术师承树">
-     <a href=change><button type="button">更改学术师承树</button></a>
-     <input type="button" onclick="window.location='showsearch.jsp'" value="搜索学术师承树">
+    <img src="image/timg.jpg" width="100%" height="100%" style="z-index:-100;position:absolute;left:0;top:0">
+  <div class="demo_con">
+ 
+	<button type="button" onclick="window.location='showcreate.jsp'" class="button black rarrow">创建学术师承树</button>
+	
+	<button type="button" onclick="window.location='showsearch.jsp'" class="button black rarrow">搜索学术师承树</button>
+	<button type="button" onclick="window.location='showbrother.jsp'" class="button black rarrow">搜索用户的同学</button>
+
+
+	<button type="submit" onclick="javascript :history.back(-1);" class="button black larrow">返回</button>
+
+</div>
      
-
-     <input type="submit" value="返回" onclick="javascript :history.back(-1);">
-
+ <a href=change><button type="button">更改学术师承树</button></a>
 </body>
 </html>

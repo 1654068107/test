@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="create" method="get">
-        <input name="treename" type="text" placeholder="请输入树的名字" size="22"required />
+        
 		<input name="father" type="text" placeholder="请输入师傅的名字" size="22"required />
 		<input name="son" type="text" placeholder="请输入弟子的名字" size="22"required />
 		<input name="time" type="text" placeholder="请输入师徒关系产生的时间" size="22"required />

@@ -1,77 +1,131 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head><!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>ECharts</title>
-    <!-- 引入 echarts.js -->
-    <!-- 这里是加载刚下好的echarts.min.js，注意路径 -->
+    <meta name="viewport" content="width=device-width" />
+    <title>ECharts ʵ��ѧ��ʦ����</title>
+    <script src="jquery-1.10.2.min.js"></script>
     <script src="echarts.min.js"></script>
+    <style type="text/css">
+        html, body, #main { height: 100%; width: 100%; margin: 0; padding: 0}
+    </style>
 </head>
 <body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 1000px;height:600px;"></div>
+    <div id="main" style=""></div>
     <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
+    var d = [][];
+   $(document).ready(function(){
+    	$.ajax({
+    		url:'/src/com.struts.trio/getData',
+    		type:'graph',
+    		dataType:"json",
+    		success:function(data){
+    			$.each(data.list, function (index, item) {
+    				d.push(item.data)
+    			}
+    		}
+    		error: function (errorMsg) {
+            	//����ʧ��ʱִ�иú���
+           		alert("��������ʧ��!");
+           	myChart.hideLoading();
+        	}
+    	})
+    })
         var myChart = echarts.init(document.getElementById('main'));
-
-        var option={
-            backgroundColor: '#2c343c',
-            textStyle: {
-                        color: 'rgba(255, 255, 255, 0.3)'
-                    },
-            series : [
+        option = {
+            title: { text: 'ѧ��ʦ����' },
+            tooltip: {
+                formatter: function (x) {
+                    return x.data.des;
+                }
+            },
+            series: [
                 {
-                    name: '访问来源',
-                    type: 'pie',
-                    radius: '55%',
-                    data:[
-                        {value:400, name:'搜索引擎'},
-                        {value:335, name:'直接访问'},
-                        {value:310, name:'邮件营销'},
-                        {value:274, name:'联盟广告'},
-                        {value:235, name:'视频广告'}
-                    ],
-                    roseType: 'angle',
-
+                    type: 'graph',
+                    layout: 'force',
+                    symbolSize: 80,
+                    roam: true,
+                    edgeSymbol: ['circle', 'arrow'],
+                    edgeSymbolSize: [4, 10],
+                    edgeLabel: {
+                        normal: {
+                            textStyle: {
+                                fontSize: 20
+                            }
+                        }
+                    },
+                    force: {
+                        repulsion: 2500,
+                        edgeLength: [10, 50]
+                    },
+                    draggable: true,
                     itemStyle: {
-                        emphasis: {
-                            shadowBlur: 200,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        normal: {
+                            color: '#4b565b'
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 2,
+                            color: '#4b565b'
+
+                        }
+                    },
+                    edgeLabel: {
+                        normal: {
+                            show: true,
+                            formatter: function (x) {
+                                return x.data.name;
+                            }
                         }
                     },
                     label: {
                         normal: {
+                            show: true,
                             textStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
                             }
                         }
                     },
-                    labelLine: {
-                        normal: {
-                            lineStyle: {
-                                color: 'rgba(255, 255, 255, 0.3)'
+                    data: [
+                        {
+                            name: '0',
+                            des: '1',
+                            symbolSize: 100,
+                            itemStyle: {
+                                normal: {
+                                    color: 'red'
+                                }
+                            }
+                        },{
+                            name: '10',
+                            des: '11',
+                            symbolSize: 100,
+                            itemStyle: {
+                                normal: {
+                                    color: 'red'
+                                }
+                            }
+                        },{
+                            name: '11',
+                            des: '12',
+                            symbolSize: 100,
+                            itemStyle: {
+                                normal: {
+                                    color: 'red'
+                                }
                             }
                         }
-                    }
-
+                    ],
+                    links: [
+                        {
+                            source: '1',
+                            target: '2',
+                            name: '3',
+                        }
+             	   ]
                 }
             ]
-        }
-
-
-        // 使用刚指定的配置项和数据显示图表。
+        };
         myChart.setOption(option);
-
     </script>
-</body>
-</html>
-
-<body>
-
 </body>
 </html>

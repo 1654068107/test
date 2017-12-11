@@ -10,7 +10,6 @@
       <form action="updaterelation" method="get">
 		<h2></h2>
 		<input name="name" type="text" placeholder="输入要更改用户的名字" size="22"required />
-		<input name="treename" type="text" placeholder="输入学术师承树名称" size="22"required />
 		<input name="father" type="text" placeholder="输入要更改关系中师傅的名字" size="22"required />
 		<input name="son" type="text" placeholder="输入要更改关系中徒弟的名字" size="22"required />
 		<input name="newfather" type="text" placeholder="输入更改后师傅的名字" size="22"required />

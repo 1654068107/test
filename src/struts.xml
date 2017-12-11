@@ -52,8 +52,16 @@
              <result name="FALSE">/false.jsp</result>
         </action>
         <action name="search" class="com.struts.trio.HelloAction" method="tosearch">
-             <result name="SUCCESS">/success.jsp</result>
+             <result name="SUCCESS">/result.jsp</result>
+             <result name="FALSE">/resultfalse.jsp</result>
+             <result name="FALSE1">/resultfalse1.jsp</result>
+             <result name="FALSE2">/resultfalse2.jsp</result>
+        </action>
+        
+        <action name="brother" class="com.struts.trio.HelloAction" method="tobrother">
+             <result name="SUCCESS">/resultbrother.jsp</result>
              <result name="FALSE">/false.jsp</result>
+             
         </action>
         <action name="add" class="com.struts.trio.HelloAction" method="toadd">
              <result name="SUCCESS">/showadd.jsp</result>

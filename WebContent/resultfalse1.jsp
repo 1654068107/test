@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>学术师承树</title>
+<title>没学生</title>
 </head>
 <body>
-    <h1>用户所创建的树</h1>
+       <h1>用户所创建的树</h1>
 	<table width="50%" border="1" align="center">
 		<tr bgcolor="#949494">
 			<th>老师</th>
@@ -52,7 +52,6 @@
 			ArrayList<Map<String, String>> list3 = (ArrayList<Map<String, String>>) session.getAttribute("list3");
 			if (list3.size() > 0) {
 				for (int i = 0; i < list3.size(); ++i) {
-					System.out.println(list3.get(i));
 					out.println("<tr align=\"center\" ><td>" + list3.get(i).get("father") + "</td>\n");
 					out.println("<td>" + list3.get(i).get("year") + "</td>\n");
 					out.println("<td>" + list3.get(i).get("month") + "</td>\n");
@@ -66,34 +65,7 @@
 
 	</table>
 	
-	<h1>用户的所有学生</h1>
-	<table width="50%" border="1" align="center">
-		<tr bgcolor="#949494">
-			<th>姓名</th>
-			<th>时间（年份）</th>
-			<th>时间（月份）</th>
-			<th>时间（日期）</th>
-
-		</tr>
-
-		<%
-			ArrayList<Map<String, String>> list2 = (ArrayList<Map<String, String>>) session.getAttribute("list2");
-			if (list2.size() > 0) {
-				for (int i = 0; i < list2.size(); ++i) {
-					System.out.println(list2.get(i));
-					out.println("<tr align=\"center\" ><td>" + list2.get(i).get("son") + "</td>\n");
-					out.println("<td>" + list2.get(i).get("year") + "</td>\n");
-					out.println("<td>" + list2.get(i).get("month") + "</td>\n");
-					out.println("<td>" + list2.get(i).get("day") + "</td>\n");
+	<input type="submit" value="返回" onclick="javascript :history.back(-1);">
 	
-				}
-			} else {
-				out.print("<tr><td>" + "false" + "</td></tr>\n");
-			}
-		%>
-
-	</table>
-
-     <input type="submit" value="返回" onclick="javascript :history.back(-1);">
 </body>
 </html>

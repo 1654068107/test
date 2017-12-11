@@ -15,6 +15,7 @@ import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class HelloAction{
 	public static String ID;
@@ -34,28 +35,7 @@ public class HelloAction{
 		this.ID = ID;
 	}
 	
-	/*public String gettname() {
-		return this.tname;
-	}
-
-	public void settnme(String tname) {
-		this.tname = tname;
-	}
 	
-	public String getothername() {
-		return this.ID;
-	}
-
-	public void setID(String ID) {
-		this.ID = ID;
-	}*/
-	/*public String getpassword() {
-		return this.password;
-	}
-
-	public void setpassword(String password) {
-		this.password = password;
-	}*/
 	
 	public String towelcome(){
 		return "SUCCESS";
@@ -76,9 +56,9 @@ public class HelloAction{
 		}
 		System.out.println(result1.size());
 		for (i = 0 ; i < result1.size(); i ++) {
-			System.out.println(i);
+			/*System.out.println(i);
 			System.out.println(this.ID.equals(result1.get(i).get("ID")));
-			System.out.println(password.equals(result1.get(i).get("password")));
+			System.out.println(password.equals(result1.get(i).get("password")));*/
 			if (this.ID.equals(result1.get(i).get("ID")) && password.equals(result1.get(i).get("password"))) {
 				setID(ID);
 				//System.out.println("Success");
@@ -109,7 +89,7 @@ public class HelloAction{
 		if (result1.size() == 0) {
 			return "FALSE";
 		}
-		System.out.println(result1.size());
+		//System.out.println(result1.size());
 		for (i = 0 ; i < result1.size(); i ++) {
 			/*System.out.println(i);
 			System.out.println(this.ID.equals(result1.get(i).get("ID")));
@@ -170,6 +150,12 @@ public class HelloAction{
 		connect mc = new connect();
 		ArrayList<Map<String, String>> result1 = mc.select(sql1, "usersid");
 		ArrayList<Map<String, String>> result2 = mc.select(sql2, "nousers");
+		ServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session = req.getSession();
+		session.setAttribute("list1", result1);
+		
+		session.setAttribute("list2", result2);
 		if (result1.size() == 0 && result2.size() == 0) {
 			return "FALSE";
 		}
@@ -179,12 +165,7 @@ public class HelloAction{
 		if (result2.size() == 0){
 			return "FALSE2";
 		}
-		ServletRequest request = ServletActionContext.getRequest();
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpSession session = req.getSession();
-		session.setAttribute("list1", result1);
 		
-		session.setAttribute("list2", result2);
 
 		return "SUCCESS";
 		
@@ -235,7 +216,7 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String treename = Srequest.getParameter("treename");
+		//String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
@@ -243,7 +224,7 @@ public class HelloAction{
 		year = Integer.parseInt(time.substring(0,4));
 		month = Integer.parseInt(time.substring(5,7));
 		day = Integer.parseInt(time.substring(8,10));
-		String sql = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + ID + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
+		String sql = "insert into users values(" + "\"" + ID + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
 				+year + "," + month + "," + day + ")";
 		System.out.println(sql);
 		connect mc = new connect();
@@ -258,21 +239,91 @@ public class HelloAction{
 		return "SUCCESS";
 	}
 
-	public String tosearch(){
+	
+
+public void search() throws SQLException
+  { 
+	
+     
+ } 
+
+ 
+	/*public String tosearch(){
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String name = Srequest.getParameter("name");
-		String sql = "select * from users where name = \"" + name + "\"";
+		String sql1 = "select * from users where name = \"" + name + "\"";
+		String sql2 = "select * from users where father = \"" + name + "\"";
+		String sql3 = "select * from users where son = \"" + name + "\"";
+		
 		connect newc = new connect();
-		ArrayList<Map<String, String>> result = newc.select(sql, "users");
-		if (result.size() == 0) {
+		ArrayList<Map<String, String>> result1 = newc.select(sql1, "users");
+		ArrayList<Map<String, String>> result2 = newc.select(sql2, "users");
+		ArrayList<Map<String, String>> result3 = newc.select(sql3, "users");
+		ServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session1 = req.getSession();
+		session1.setAttribute("list1", result1);
+		session1.setAttribute("list2", result2);
+		session1.setAttribute("list3", result3);
+		int i;
+		for (i = 0 ; i < result2.size() ; i ++){
+			System.out.println("2" + result2.get(i));
+		}
+		
+		for (i = 0 ; i < result3.size() ; i ++){
+			System.out.println("3" + result3.get(i));
+		}
+		if (result1.size() == 0) {
 			return "FALSE";
 		}
-		int i;
-		for (i = 0 ; i < result.size(); i ++) {
-			System.out.println(result.get(i));
-	    }
+		if (result2.size() == 0){
+			return "FALSE1";
+		}
+		if (result3.size() == 0){
+			return "FALSE2";
+		}
+		
+		return "SUCCESS";
+	}*/
+	
+	public String tobrother(){
+		ServletRequest Srequest = ServletActionContext.getRequest();
+		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
+		HttpSession session = Sreq.getSession();
+		String name = Srequest.getParameter("name");
+		String sql1 = "select * from users where father = \"" + name + "\" and son != \"" + ID + "\"";
+	
+		connect newc = new connect();
+		ArrayList<Map<String, String>> result1 = newc.select(sql1, "users");
+		
+		ServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session1 = req.getSession();
+		session1.setAttribute("list1", result1);
+		
+		if (result1.size() == 0){
+			return "FALSE";
+		}
+		/*int i;
+		for (i = 0 ; i < result2.size() ; i ++){
+			System.out.println("2" + result2.get(i));
+		}
+		
+		for (i = 0 ; i < result3.size() ; i ++){
+			System.out.println("3" + result3.get(i));
+		}
+		if (result1.size() == 0) {
+			return "FALSE";
+		}
+		if (result2.size() == 0){
+			return "FALSE1";
+		}
+		if (result3.size() == 0){
+			return "FALSE2";
+		}
+		*/
 		return "SUCCESS";
 	}
 	public String toadd() {
@@ -280,7 +331,7 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String name = Srequest.getParameter("name");
-		String treename = Srequest.getParameter("treename");
+		//String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
@@ -295,7 +346,7 @@ public class HelloAction{
 		day2 = Integer.parseInt(time2.substring(8,10));*/
 		connect mc = new connect();
 		int status1;
-			String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + name + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
+			String sql1 = "insert into users values(" + "\"" +  name + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
 					+year + "," + month + "," + day + ")";
 			System.out.println(sql1);
 			status1 = mc.update(sql1);
@@ -325,14 +376,14 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String treename = Srequest.getParameter("treename");
+		//String treename = Srequest.getParameter("treename");
 		//String name = Srequest.getParameter("name");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
 		connect mc = new connect();
 		int status;
-	    String sql = "delete from users where treename=" + "\"" + treename + "\"" + "and name=" + "\"" + ID + "\"" + "and father=" + "\"" + father + "\"" + "and son=" + "\"" + son + "\"";
+	    String sql = "delete from users where name=" + "\"" + ID + "\"" + "and father=" + "\"" + father + "\"" + "and son=" + "\"" + son + "\"";
 		status = mc.delete(sql);
 		
 		if (status == 0) {
@@ -361,9 +412,9 @@ public class HelloAction{
 		String name = Srequest.getParameter("name");
 		String oldname = Srequest.getParameter("oldname");
 		String newname = Srequest.getParameter("newname");
-		String treename = Srequest.getParameter("treename");
-		String sql1 = "update users set father=\"" + newname + "\" where father=\"" + oldname +"\" and name = \"" +  name + "\" and treename = \"" +  treename + "\""; 
-		String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\" and name = \"" + name + "\" and treename = \"" +  treename + "\"";
+		//String treename = Srequest.getParameter("treename");
+		String sql1 = "update users set father=\"" + newname + "\" where father=\"" + oldname +"\" and name = \"" +  name + "\""; 
+		String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\" and name = \"" + name + "\"";
 		
 		System.out.println(sql2);
 		connect mc = new connect();
@@ -383,7 +434,7 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String treename = Srequest.getParameter("treename");
+		//String treename = Srequest.getParameter("treename");
 		String name = Srequest.getParameter("name");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
@@ -392,7 +443,7 @@ public class HelloAction{
 		year = Integer.parseInt(time.substring(0,4));
 		month = Integer.parseInt(time.substring(5,7));
 		day = Integer.parseInt(time.substring(8,10));
-		String sql = "update users set year=" + year + ", month=" + month + ",day=" + day + " where treename=\"" + treename + "\"and name=\"" + name + "\"and father=\"" + father
+		String sql = "update users set year=" + year + ", month=" + month + ",day=" + day + " where name=\"" + name + "\"and father=\"" + father
 				+ "\" and son=\"" + son + "\"";
 		System.out.println(sql);
 		connect mc = new connect();
@@ -410,12 +461,12 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String name = Srequest.getParameter("name");
-		String treename = Srequest.getParameter("treename");
+		//String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
 		String son = Srequest.getParameter("son");
 		String newfather = Srequest.getParameter("newfather");
 		String newson = Srequest.getParameter("newson");
-		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\" and name =\"" + name + "\" and treename =\"" + treename + "\""; 
+		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\" and name =\"" + name + "\""; 
         //String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\"";
 		
 		//System.out.println(sql);
@@ -429,8 +480,8 @@ public class HelloAction{
 		}
 	}
 	
-	public int mergetemp(String treename , String newname ,String ID , String father , connect newc){
-		String sql1 = "select * from users where treename = " + "\"" + treename +"\" and name = \"" + ID + "\" and father = \"" + father + "\"";
+	public int mergetemp(String name ,String ID , String father , connect newc){
+		String sql1 = "select * from users where name = \"" + name + "\" and father = \"" + father + "\"";
 		System.out.println("11" + sql1 + "\n");
 		//connect newc = new connect();
 		ArrayList<Map<String, String>> result = newc.select(sql1, "users");
@@ -438,7 +489,7 @@ public class HelloAction{
 			return 0;
 		}
 		System.out.println(result.size());
-		int i;
+		int i , status = 0;
 		for (i = 0 ; i < result.size(); i ++) {
 			/*System.out.println(i);
 			System.out.println(this.ID.equals(result1.get(i).get("ID")));
@@ -447,24 +498,23 @@ public class HelloAction{
 				//System.out.println("Success");
 				return "SUCCESS";
 			}*/
-			String sql2 = "update users set treename = \"" + newname + "\" where treename=\"" + treename + "\"and name=\"" + ID + "\"and father=\"" + father + "\"";
+			String sql2 = "insert into users values (\"" + ID + "\" , \"" + father + "\" , \"" + result.get(i).get("son") + "\" , " + result.get(i).get("year") + "," + result.get(i).get("month") + "," + result.get(i).get("day") +")";
 			System.out.println("12" + sql2 + "\n");
-			int status = newc.update(sql2);
-			mergetemp(treename,newname,ID,result.get(i).get("son"),newc);
-			return status;
+			mergetemp(name,ID,result.get(i).get("son"),newc);
+			status = newc.update(sql2);
 		}
-		return 1;
+		return status;
 	}
 	
 	public String tomerge() {
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String treename = Srequest.getParameter("treename");
+		//String treename = Srequest.getParameter("treename");
 		String father = Srequest.getParameter("father");
-		//String ID = Srequest.getParameter("ID");
-		String sql1 = "select * from users where treename != " + "\"" + treename +"\" and name = \"" + ID + "\" and father = \"" + father + "\"";
-		//System.out.println("00" + sql1 + "\n");
+		String name = Srequest.getParameter("name");
+		String sql1 = "select * from users where name = \"" + name + "\" and father = \"" + father + "\"";
+		System.out.println("00" + sql1 + "\n");
 		connect newc = new connect();
 		ArrayList<Map<String, String>> result = newc.select(sql1, "users");
 		if (result.size() == 0) {
@@ -473,7 +523,7 @@ public class HelloAction{
 		System.out.println("01" + sql1 + "\n");
 		int i , status;
 		for (i = 0 ; i < result.size(); i ++) {
-			status = mergetemp(result.get(i).get("treename"),treename,ID,father,newc);
+			status = mergetemp(name,ID,father,newc);
 			if (status == 0){
 				return "FALSE";
 			}
