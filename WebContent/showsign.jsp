@@ -10,7 +10,7 @@
 <style type="text/css">
 *{margin:0;padding:0;list-style-type:none;}
 a,img{border:0;}
-body{font-size:28px;font-family:"楷体";background:#b42323;}
+body{font-size:28px;font-family:"楷体";background-color:#b42323;}
 .demo_con{width: 1960px;margin:130px 0 0 550px;}
 </style>
 <link type="text/css" rel="stylesheet" href="css/mycss.css"/>

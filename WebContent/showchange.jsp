@@ -12,7 +12,7 @@
      <a href=update><button type="button" style="position:absolute;left:500px;top:100px" class="button red">更新学术师承树内容</button></a>
      <input type="button" onclick="window.location='showdelete.jsp'" style="position:absolute;left:500px;top:180px" class="button red rarrow" value="删除学术师承树内容">
      <input type="button" onclick="window.location='showadd.jsp'" style="position:absolute;left:500px;top:260px" class="button red rarrow" value="添加学术师承树内容">
-     <input type="button" onclick="window.location='showmerge.jsp'" style="position:absolute;left:500px;top:340px" class="button red rarrow" value="合并学术师承树">
+
      
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);" style="position:absolute;left:500px;top:420px" class="button black rarrow">

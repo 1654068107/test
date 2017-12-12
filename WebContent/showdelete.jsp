@@ -12,7 +12,7 @@
     <img src="image/1.jpg" width="100%" height="100%" style="z-index:-100;position:absolute;left:0;top:0">
     <form action="delete" method="get">
 		<h2></h2>
-		
+		<input name="name" type="text" style="position:absolute; left:450px; top:140px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入你的昵称" size="22"required />
 		<!--  <input name="name" type="text" placeholder="输入用户名称" size="22"required />-->
 		<input name="father" type="text" style="position:absolute; left:450px; top:200px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入待删除关系中老师的名字" size="22"required />
 		<input name="son" type="text" style="position:absolute; left:450px; top:260px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入待删除关系中徒弟的名字" size="22"required />

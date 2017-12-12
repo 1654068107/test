@@ -11,8 +11,8 @@
      <img src="image/1.jpg" width="100%" height="100%" style="z-index:-100;position:absolute;left:0;top:0">
      <form action="add" method="get">
 		<h2></h2>
-		<input name="name" type="text" style="position:absolute; left:450px; top:150px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入要更改用户的名字" size="22"required />
 		
+		<input name="name" type="text" style="position:absolute; left:450px; top:150px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入要更改用户的名字" size="22"required />
 		
 		<input name="father" type="text" style="position:absolute; left:450px; top:210px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入老师" size="22"required />
 		<input name="son" type="text" style="position:absolute; left:450px; top:270px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入学生" size="22"required />

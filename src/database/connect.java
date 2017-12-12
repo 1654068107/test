@@ -68,7 +68,25 @@ public class connect {
 		}
 		return lineNum;
 	}
-
+    
+	public String find(String sql , String tableName){
+		String result = null;
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			System.out.println(sql);
+			if (!rs.next()){
+				System.out.println("null");
+				return null;
+			}
+			result = rs.getString("net");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
 	// 获取当前表的关键字，并以字符串数组的形式返回：如“username”，“id“等
 	private String[] getFrame(String tableName) {
 		String[] result = new String[10];

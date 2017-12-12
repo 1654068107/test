@@ -12,7 +12,9 @@
 	<table width="50%" border="1" align="center">
 		<tr bgcolor="#949494">
 			<th>账号</th>
+			<th>昵称</th>
 			<th>密码</th>
+			<th>网址</th>
 
 		</tr>
 
@@ -21,8 +23,9 @@
 			if (list1.size() > 0) {
 				for (int i = 0; i < list1.size(); ++i) {
 					out.println("<tr align=\"center\" ><td>" + list1.get(i).get("ID") + "</td>\n");
-					
+					out.println("<td>" + list1.get(i).get("name") + "</td>\n");
 					out.println("<td>" + list1.get(i).get("password") + "</td>\n");
+					out.println("<td>" + list1.get(i).get("net") + "</td>\n");
 					            
 				}
 			} else {
@@ -33,26 +36,7 @@
 	</table>
 	
 	<br />
-	<h1>可注册用户</h1>
-	<table width="50%" border="1" align="center">
-		<tr bgcolor="#949494">
-			<th>账号</th>
-
-		</tr>
-
-		<%
-			ArrayList<Map<String, String>> list2 = (ArrayList<Map<String, String>>) session.getAttribute("list2");
-			if (list2.size() > 0) {
-				for (int i = 0; i < list2.size(); ++i) {
-					out.println("<tr align=\"center\" ><td>" + list2.get(i).get("ID") + "</td>\n");
 	
-				}
-			} else {
-				out.print("<tr><td>" + "false" + "</td></tr>\n");
-			}
-		%>
-
-	</table>
 
      <input type="submit" value="返回" onclick="javascript :history.back(-1);">
 </body>

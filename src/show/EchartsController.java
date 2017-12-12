@@ -39,15 +39,15 @@ public class EchartsController extends JFrame{
 		setBounds(0,0,1000,1000);
 		setVisible(true);
 	}
-	public String tosearch(){
+	public String tosearch() throws UnsupportedEncodingException{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		name = Srequest.getParameter("name");
+		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");  
 		String sql1 = "select * from users where name = \"" + name + "\"";
 		String sql2 = "select * from users where father = \"" + name + "\"";
 		String sql3 = "select * from users where son = \"" + name + "\"";
-		
+		System.out.println(sql1);
 		connect newc = new connect();
 		ArrayList<Map<String, String>> result1 = newc.select(sql1, "users");
 		ArrayList<Map<String, String>> result2 = newc.select(sql2, "users");
@@ -83,6 +83,9 @@ public class EchartsController extends JFrame{
 		}
 		if (result1.size() == 0) {
 			return "FALSE";
+		}
+		if (result2.size() == 0 && result3.size() == 0){
+			return "FALSE3";
 		}
 		if (result2.size() == 0){
 			return "FALSE1";

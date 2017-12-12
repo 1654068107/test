@@ -24,14 +24,16 @@ body{font-size:28px;font-family:"楷体";background:#b42323;}
      <h1>用户注册</h1>
      <form action="write" method="get">
 		<h2></h2>
-	    <input name="ID" type="text" style="position:absolute; left:460px; top:210px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="账号" size="22"required />
+	    <input name="ID" type="text" style="position:absolute; left:460px; top:160px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="账号" size="22"required />
+	    <input name="name" type="text" style="position:absolute; left:460px; top:210px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="昵称" size="22"required />
 		<input name="password" type="text" style="position:absolute; left:460px; top:260px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;"  placeholder="密码" size="22"required />
+		<input name="net" type="text" style="position:absolute; left:460px; top:310px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="网址" size="22"required />
 				
-		<input type="submit"  style="position:absolute;left:500px;top:310px" class="button black rarrow" value="确认">
+		<input type="submit"  style="position:absolute;left:500px;top:360px" class="button black rarrow" value="确认">
 		</form>
 		
-	    
-	    <button type="submit" onclick="javascript :history.back(-1);" style="position:absolute;left:700px;top:310px" class="button black">返回</button>
+	    <input type="submit" style="position:absolute;left:700px;top:360px" class="button black rarrow" value="返回" onclick="javascript :history.back(-1);">
+	    <!--<button type="submit" onclick="javascript :history.back(-1);" style="position:absolute;left:700px;top:360px" class="button black">返回</button>-->
 </div>
 </body>
 </html>

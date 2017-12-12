@@ -11,6 +11,7 @@
     <img src="image/1.jpg" width="100%" height="100%" style="z-index:-100;position:absolute;left:0;top:0">
      <form action="updatename" method="get">
 		<h2></h2>
+		
 		<input name="name" type="text" style="position:absolute; left:450px; top:200px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入要更改用户的名字" size="22"required />
 		
 		<input name="oldname" type="text" style="position:absolute; left:450px; top:250px; font-family:courier; font-size: 30px; font-weight: bold; border:5px solid red width:50px; height:30px;" placeholder="输入原来师承树节点的名字" size="22"required />

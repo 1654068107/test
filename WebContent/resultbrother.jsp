@@ -19,18 +19,39 @@
 		</tr>
 
 		<%
-			ArrayList<Map<String, String>> list1 = (ArrayList<Map<String, String>>) session.getAttribute("list1");
-			if (list1.size() > 0) {
-				for (int i = 0; i < list1.size(); ++i) {
-					out.println("<tr align=\"center\" ><td>" + list1.get(i).get("son") + "</td>\n");
-					out.println("<td>" + list1.get(i).get("year") + "</td>\n");
-					out.println("<td>" + list1.get(i).get("month") + "</td>\n");
-					out.println("<td>" + list1.get(i).get("day") + "</td>\n");
-					            
+		ArrayList<Map<String, String>> list2 = (ArrayList<Map<String, String>>) session.getAttribute("list1");
+		if (list2.size() > 0) {
+			String[][] student = new String[list2.size()][4];
+			int j=0;
+			for (int i = 0; i < list2.size(); ++i) {
+				int flag = 0;
+				for (int k = 0 ; k < j ; k ++){
+					if (student[k][0].equals(list2.get(i).get("son")) && student[k][1].equals(list2.get(i).get("year")) && student[k][2].equals(list2.get(i).get("month")) && student[k][3].equals(list2.get(i).get("day"))){
+						flag = 1;
+						break;
+					}
 				}
-			} else {
-				out.print("<tr><td>" + "false" + "</td></tr>\n");
+				if (flag == 0){
+					if (list2.get(i).get("nets").equals("null")){
+                    	out.println("<tr align=\"center\" ><td>" + list2.get(i).get("son") + "</td>\n");
+                    }
+                    else{
+                    	out.println("<tr align=\"center\" ><td>" + "<a href = " + list2.get(i).get("nets") + ">" + list2.get(i).get("son") + "</td>\n");
+                    }
+				
+					out.println("<td>" + list2.get(i).get("year") + "</td>\n");
+					out.println("<td>" + list2.get(i).get("month") + "</td>\n");
+					out.println("<td>" + list2.get(i).get("day") + "</td>\n");
+	                student[j][0] = list2.get(i).get("son");
+	                student[j][1] = list2.get(i).get("year");
+	                student[j][2] = list2.get(i).get("month");
+	                student[j][3] = list2.get(i).get("day");
+	                j ++;
+				}
 			}
+		} else {
+			out.print("<tr><td>" + "false" + "</td></tr>\n");
+		}
 		%>
 
 	</table>

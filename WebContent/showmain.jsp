@@ -11,12 +11,12 @@
     <img src="image/1.jpg" width="100%" height="100%" style="z-index:-100;position:absolute;left:0;top:0">
   <div class="demo_con">
  
-	<button type="button" onclick="window.location='showcreate.jsp'" style="position:absolute;left:500px;top:50px" class="button red rarrow">创建学术师承树</button>
-	
-	<button type="button" onclick="window.location='showsearch.jsp'" style="position:absolute;left:500px;top:150px" class="button black rarrow">搜索学术师承树</button>
-	<button type="button" onclick="window.location='showbrother.jsp'" style="position:absolute;left:500px;top:250px" class="button black rarrow">搜索用户的同学</button>
 
-	<a href=change><button type="button" style="position:absolute;left:500px;top:350px" class="button black rarrow">更改学术师承树</button></a>
+	
+	<button type="button" onclick="window.location='showsearch.jsp'" style="position:absolute;left:500px;top:150px" class="button red rarrow">搜索学术师承树</button>
+	<button type="button" onclick="window.location='showbrother.jsp'" style="position:absolute;left:500px;top:250px" class="button red rarrow">搜索用户的同学</button>
+
+	<a href=change><button type="button" style="position:absolute;left:500px;top:350px" class="button red rarrow">更改学术师承树</button></a>
 
 	<button type="submit" onclick="javascript :history.back(-1);" style="position:absolute;left:500px;top:450px" class="button black larrow">返回</button>
 
