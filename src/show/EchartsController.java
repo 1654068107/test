@@ -24,11 +24,11 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.struts2.ServletActionContext;
 
-class relate {
+/*class relate {
 	String name,time;
-}
+}*/
 public class EchartsController extends JFrame{
-	public static String name;
+	/*public static String name;
 	List<relate> stulist=new ArrayList<relate>();
 	List<relate> tealist=new ArrayList<relate>();
 	
@@ -38,7 +38,7 @@ public class EchartsController extends JFrame{
 		super("»­Ô²");
 		setBounds(0,0,1000,1000);
 		setVisible(true);
-	}
+	}*/
 	public String tosearch() throws UnsupportedEncodingException{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
@@ -58,9 +58,9 @@ public class EchartsController extends JFrame{
 		session1.setAttribute("list1", result1);
 		session1.setAttribute("list2", result2);
 		session1.setAttribute("list3", result3);
-		int i;
-		String time;
-		for (i = 0 ; i < result2.size() ; i ++){
+		//int i;
+		//String time;
+		/*for (i = 0 ; i < result2.size() ; i ++){
 			time = "";
 		    relate a=new relate();
 		    time = time + result2.get(i).get("year");
@@ -80,7 +80,7 @@ public class EchartsController extends JFrame{
 		    a.name=result3.get(i).get("son");
 		    a.time=time;
 		    stulist.add(a);
-		}
+		}*/
 		if (result1.size() == 0) {
 			return "FALSE";
 		}
@@ -96,7 +96,7 @@ public class EchartsController extends JFrame{
 		
 		return "SUCCESS";
 	}
-	public void togetlist(String str)
+	/*public void togetlist(String str)
 	{
 		connect newc = new connect();
 
@@ -217,5 +217,5 @@ public class EchartsController extends JFrame{
 	           mathstr[ 1 ]  =  vy;
 	       }
 	        return  mathstr;
-	   } 
+	   } */
 } 

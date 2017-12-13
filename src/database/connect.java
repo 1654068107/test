@@ -9,6 +9,18 @@ public class connect {
 	private Connection connection = null;
 
 	public connect() {
+		/*String driver = "com.mysql.jdbc.Driver";
+		String username = System.getenv("ACCESSKEY");
+		String password = System.getenv("SECRETKEY");
+		//System.getenv("MYSQL_HOST_S"); Îª´Ó¿â£¬Ö»¶Á
+		String dbUrl = String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8", System.getenv("MYSQL_HOST"), System.getenv("MYSQL_PORT"), System.getenv("MYSQL_DB"));
+		try {
+		    Class.forName(driver).newInstance();
+		    connection = DriverManager.getConnection(dbUrl, username, password);
+		    // ...
+		} catch (Exception e) {
+		    // ...
+		}*/
 		String driver = "com.mysql.jdbc.Driver";
 		String username = "root";
 		String password = "zsnylk1dzmdcgdwl";
@@ -20,6 +32,9 @@ public class connect {
 			System.out.println("ERROR AT MysqlConnecter");
 			e.printStackTrace();
 		}
+
+
+
 		
 	}
 

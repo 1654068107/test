@@ -21,22 +21,35 @@ public class HelloAction{
 	
 	//private ServletRequest request;
 	private ArrayList<String> list = null;
-	
+	private String name , father , son;
     //password = request.getParameter("password");
 	public ArrayList<String> getList() {
 		return this.list;
 	}
 
-	/*public String getID() {
-		return this.ID;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setID(String ID) {
-		this.ID = ID;
-	}*/
+	public void setName(String name) {
+		this.name = name;
+	}
 	
+	public String getFather() {
+		return this.father;
+	}
+
+	public void setFather(String father) {
+		this.father = father;
+	}
 	
-	
+	public String getSon() {
+		return this.son;
+	}
+
+	public void setSon(String son) {
+		this.son = son;
+	}
 	public String towelcome(){
 		return "SUCCESS";
 	}
@@ -45,13 +58,13 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String ID = new String(Srequest.getParameter("ID").getBytes("iso-8859-1"), "utf-8");
+		String ID = Srequest.getParameter("ID");
 		String password = Srequest.getParameter("password");
 		int i;
-		System.out.println(ID + " " + password);
-		String sql1 = "select * from usersID";
+		//System.out.println(ID + " " + password);
+		String sql1 = "select * from usersid";
 		connect newc = new connect();
-		ArrayList<Map<String, String>> result1 = newc.select(sql1, "usersID");
+		ArrayList<Map<String, String>> result1 = newc.select(sql1, "usersid");
 		if (result1.size() == 0) {
 			return "FALSE";
 		}
@@ -112,12 +125,48 @@ public class HelloAction{
 		return "SUCCESS";
 	}
 	
+	public String tosearch() {
+		ServletRequest request = ServletActionContext.getRequest();
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpSession session1 = req.getSession();
+		String sql1 = "select * from users where name = \"" + name + "\"";
+		connect newc = new connect();
+		ArrayList<Map<String, String>> result1 = newc.select(sql1, "users");
+		session1.setAttribute("list1", result1);
+		String sql2 = "select * from users where father = \"" + name + "\"";
+		ArrayList<Map<String, String>> result2 = newc.select(sql2, "users");
+		session1.setAttribute("list2", result2);
+		String sql3 = "select * from users where son = \"" + name + "\"";
+        //System.out.println(sql1);
+        ArrayList<Map<String, String>> result3 = newc.select(sql3, "users");
+        session1.setAttribute("list3", result3);
+		
+		
+	
+		
+		
+		if (result1.size() == 0) {
+			return "FALSE";
+		}
+		if (result2.size() == 0 && result3.size() == 0){
+			return "FALSE3";
+		}
+		if (result2.size() == 0){
+			return "FALSE1";
+		}
+		if (result3.size() == 0){
+			return "FALSE2";
+		}
+		
+		return "SUCCESS";
+	}
+	
 	public String tocancel() throws UnsupportedEncodingException {
 		//System.out.println(ID);
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
 		String sql1 = "delete from usersid where name=" + "\"" + name + "\"";
 		//System.out.println(this.ID);
 		connect newc = new connect();
@@ -132,7 +181,7 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		String ID = Srequest.getParameter("ID");
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
 		String password = Srequest.getParameter("password");
 		String sql = "insert into moniter values (\"" + ID + "\" ," + "\"" + name + "\" , " + "\"" + password + "\")";
 		System.out.println(sql);
@@ -170,7 +219,7 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
 		String ID = Srequest.getParameter("ID");
 		String password = Srequest.getParameter("password");
 		String net = Srequest.getParameter("net");
@@ -183,16 +232,9 @@ public class HelloAction{
 		//System.out.println("Success");
 		String sql1 = "update users set netf = \"" + net + "\" where father=\"" + name +"\""; 
 		String sql2 = "update users set nets = \"" + net + "\" where son=\"" + name +"\"";
-		int status1 = newc.delete(sql1);
-		int status2 = newc.delete(sql2);
-		
-		
-		if (status1 == 0 && status2 == 0) {
-			System.out.println("1:" + status1 + "2:" + status2);
-			return "FALSE";
-		} else {
-			return "SUCCESS";
-		}
+		int status1 = newc.update(sql1);
+		int status2 = newc.update(sql2);
+		return "SUCCESS";
 		
 
 	}
@@ -277,10 +319,10 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-		String fathername = new String(Srequest.getParameter("fathername").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
+		String fathername =Srequest.getParameter("fathername");
 		String sql1 = "select * from users where father = \"" + fathername + "\" and son != \"" + name + "\"";
-	    System.out.println(sql1);
+	    //System.out.println(sql1);
 		connect newc = new connect();
 		ArrayList<Map<String, String>> result1 = newc.select(sql1, "users");
 		
@@ -317,10 +359,7 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-		//String treename = Srequest.getParameter("treename");
-		String father = new String(Srequest.getParameter("father").getBytes("iso-8859-1"), "utf-8");
-		String son = new String(Srequest.getParameter("son").getBytes("iso-8859-1"), "utf-8");
+		
 		String time = Srequest.getParameter("time");
 		int year , month , day;
 		year = Integer.parseInt(time.substring(0,4));
@@ -336,22 +375,7 @@ public class HelloAction{
 				+year + "," + month + "," + day + "," + "\"" + netf + "\"" + "," + "\"" + nets + "\"" + ")";
 	
 		int status1 = mc.update(sql);
-		/*if (!(gfather.equals("null"))){
-			String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + name + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
-					+year2 + "," + month2 + "," + day2 + ")";
-			status2 = mc.update(sql2);
-		}
-		else{
-			status2 =1;
-		}*/
-		/*String sql1 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + father + "\"" + "," + "\"" + son + "\"" + ","
-				+year1 + "," + month1 + "," + day1 + ")";
-		String sql2 = "insert into users values(" + "\"" + treename + "\"" + "," + "\"" + "user1" + "\"" + "," + "\"" + gfather + "\"" + "," + "\"" + father + "\"" + ","
-				+year2 + "," + month2 + "," + day2 + ")";
-		System.out.println(sql1);
-		connect mc = new connect();
-		int status1 = mc.update(sql1);
-		int status2 = mc.update(sql2);*/
+		
 		if (status1 == 0)
 			return "FALSE";
 
@@ -363,9 +387,9 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		//String treename = Srequest.getParameter("treename");
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-		String father = new String(Srequest.getParameter("father").getBytes("iso-8859-1"), "utf-8");
-		String son = new String(Srequest.getParameter("son").getBytes("iso-8859-1"), "utf-8");
+		String name =Srequest.getParameter("name");
+		String father =Srequest.getParameter("father");
+		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
 		connect mc = new connect();
 		int status;
@@ -395,9 +419,9 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-		String oldname = new String(Srequest.getParameter("oldname").getBytes("iso-8859-1"), "utf-8");
-		String newname = new String(Srequest.getParameter("newname").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
+		String oldname =Srequest.getParameter("oldname");
+		String newname =Srequest.getParameter("newname");
 		//String treename = Srequest.getParameter("treename");
 		connect mc = new connect();
 		String sql = "select * from usersid where name = \"" + newname + "\""; 
@@ -409,8 +433,8 @@ public class HelloAction{
 		
 		
 		
-		int status1 = mc.delete(sql1);
-		int status2 = mc.delete(sql2);
+		int status1 = mc.update(sql1);
+		int status2 = mc.update(sql2);
 		
 		
 		if (status1 == 0 && status2 == 0) {
@@ -427,9 +451,9 @@ public class HelloAction{
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
 		//String treename = Srequest.getParameter("treename");
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-		String father = new String(Srequest.getParameter("father").getBytes("iso-8859-1"), "utf-8");
-		String son = new String(Srequest.getParameter("son").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
+		String father = Srequest.getParameter("father");
+		String son = Srequest.getParameter("son");
 		String time = Srequest.getParameter("time");
 		int year , month , day;
 		year = Integer.parseInt(time.substring(0,4));
@@ -439,7 +463,7 @@ public class HelloAction{
 				+ "\" and son=\"" + son + "\"";
 		System.out.println(sql);
 		connect mc = new connect();
-		int status = mc.delete(sql);
+		int status = mc.update(sql);
 			
 		if (status == 0) {
 			return "FALSE";
@@ -452,18 +476,18 @@ public class HelloAction{
 		ServletRequest Srequest = ServletActionContext.getRequest();
 		HttpServletRequest Sreq = (HttpServletRequest) Srequest;
 		HttpSession session = Sreq.getSession();
-		String name = new String(Srequest.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+		String name = Srequest.getParameter("name");
 		//String treename = Srequest.getParameter("treename");
-		String father = new String(Srequest.getParameter("father").getBytes("iso-8859-1"), "utf-8");
-		String son = new String(Srequest.getParameter("son").getBytes("iso-8859-1"), "utf-8");
-		String newfather = new String(Srequest.getParameter("newfather").getBytes("iso-8859-1"), "utf-8");
-		String newson = new String(Srequest.getParameter("newson").getBytes("iso-8859-1"), "utf-8");
+		String father = Srequest.getParameter("father");
+		String son = Srequest.getParameter("son");
+		String newfather = Srequest.getParameter("newfather");
+		String newson = Srequest.getParameter("newson");
 		String sql = "update users set father=\"" + newfather + "\", son=\"" + newson + "\" where father=\"" + father +"\" and son =\"" + son + "\" and name =\"" + name + "\""; 
         //String sql2 = "update users set son=\"" + newname + "\" where son=\"" + oldname +"\"";
 		
 		//System.out.println(sql);
 		connect mc = new connect();
-		int status = mc.delete(sql);
+		int status = mc.update(sql);
 		
 		if (status == 0) {
 			return "FALSE";
